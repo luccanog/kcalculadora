@@ -15,7 +15,7 @@ class _HomeState extends State<Home> {
   TextEditingController weightCtrl = TextEditingController();
   TextEditingController heightCtrl = TextEditingController();
   TextEditingController ageCtrl = TextEditingController();
-  String _infoText = "Write your info.";
+  String _infoText = "Basal metabolic rate";
   String selectedItem = 'Male';
   var _sex = ['Male', 'Female'];
 
@@ -24,7 +24,7 @@ class _HomeState extends State<Home> {
     heightCtrl.clear();
     ageCtrl.clear();
     setState(() {
-      _infoText = "Write your info.";
+      _infoText = "Basal metabolic rate.";
     });
   }
 
@@ -61,7 +61,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text('KCalculadora'),
+            title: Text('KCalc'),
             centerTitle: true,
             backgroundColor: Colors.black87,
             actions: <Widget>[
