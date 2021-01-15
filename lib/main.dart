@@ -15,29 +15,45 @@ class _HomeState extends State<Home> {
   TextEditingController weightCtrl = TextEditingController();
   TextEditingController heightCtrl = TextEditingController();
   TextEditingController ageCtrl = TextEditingController();
-
-  String _infoText = "Informe seus dados!";
+  String _infoText = "Write your info.";
+  String selectedItem = 'Male';
+  var _sex = ['Male', 'Female'];
 
   void _resetFields() {
     weightCtrl.clear();
     heightCtrl.clear();
+    ageCtrl.clear();
     setState(() {
-      _infoText = "Informe seus dados!";
+      _infoText = "Write your info.";
+    });
+  }
+
+  void _dropDownItemSelected(String novoItem) {
+    setState(() {
+      selectedItem = novoItem;
     });
   }
 
   void calculate() {
-    /** @todo: process kcal result */
+    String result = '';
+    double weight = double.parse(weightCtrl.text);
+    double height = double.parse(heightCtrl.text);
+    double age = double.parse(ageCtrl.text);
+    String sex = selectedItem;
 
-/** Homens 
- * 66 + (13,7 * KG ) + (5,0 * CM ) - (6,8 * IDADE)
-*/
+    switch (sex) {
+      case 'Male':
+        result =
+            (66 + (13.7 * weight) + (5.0 * height) - (6.8 * age)).toStringAsFixed(2);
+        break;
+      case 'Female':
+        result =
+            (665 + (9.6 * weight) + (1.8 * height) - (4.7 * age)).toStringAsFixed(2);
+        break;
+    }
 
-/** Mulheres 
- * 665 + (9,6 * KG ) + (1,8 * CM ) - (4,7 * IDADE)
-*/
     setState(() {
-      /** setting state to _infoText */
+      _infoText = '$result Kcal';
     });
   }
 
@@ -66,8 +82,35 @@ class _HomeState extends State<Home> {
               Icon(Icons.calculate_sharp, size: 120, color: Colors.black87),
               WeightInput(weightCtrl: weightCtrl),
               HeightInput(heightCtrl: heightCtrl),
-              AgeInput(ageCtrl:ageCtrl),
-              SexDropDown(),
+              AgeInput(ageCtrl: ageCtrl),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Sex",
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 25.0,
+                    ),
+                  ),
+                  DropdownButton<String>(
+                    style: TextStyle(
+                      color: Colors.black87,
+                      fontSize: 25,
+                    ),
+                    items: _sex.map((String dropDownStringItem) {
+                      return DropdownMenuItem<String>(
+                        value: dropDownStringItem,
+                        child: Text(dropDownStringItem),
+                      );
+                    }).toList(),
+                    onChanged: (String newSelectedItem) {
+                      _dropDownItemSelected(newSelectedItem);
+                    },
+                    value: selectedItem,
+                  ),
+                ],
+              ),
               Padding(
                 padding: EdgeInsets.only(top: 10, bottom: 10),
                 child: Container(
@@ -93,7 +136,6 @@ class _HomeState extends State<Home> {
         ));
   }
 }
-
 
 class AgeInput extends StatelessWidget {
   var ageCtrl = TextEditingController();
@@ -167,55 +209,5 @@ class HeightInput extends StatelessWidget {
         fontSize: 25,
       ),
     );
-  }
-}
-
-class SexDropDown extends StatefulWidget {
-  @override
-  _SexDropDownState createState() => _SexDropDownState();
-}
-
-class _SexDropDownState extends State<SexDropDown> {
-  var _sex = ['Male', 'Female'];
-  var _selectedItem = 'Male';
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text("Sex",
-         style: TextStyle(
-           color: Colors.black87,
-            fontSize: 25.0,
-          ),
-        ),
-        DropdownButton<String>(
-          style: TextStyle(
-            color: Colors.black87,
-            fontSize: 25,
-            
-          ),
-          items: _sex.map((String dropDownStringItem) {
-            return DropdownMenuItem<String>(
-              value: dropDownStringItem,
-              child: Text(dropDownStringItem),
-            );
-          }).toList(),
-          onChanged: (String newSelectedItem) {
-            _dropDownItemSelected(newSelectedItem);
-            setState(() {
-              this._selectedItem = newSelectedItem;
-            });
-          },
-          value: _selectedItem,
-        ),
-      ],
-    );
-  }
-
-  void _dropDownItemSelected(String novoItem) {
-    setState(() {
-      this._selectedItem = novoItem;
-    });
   }
 }
