@@ -1,16 +1,7 @@
 # Kcalculadora
 
-A new Flutter project.
+Daily Kcal consumption calculator.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+open -a Simulator --args -CurrentDeviceUDID C673E831-465B-472F-8760-A9F3A113E45F
