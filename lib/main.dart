@@ -69,10 +69,15 @@ class _HomeState extends State<Home> {
                 icon: Icon(Icons.refresh),
                 onPressed: _resetFields,
               ),
-              IconButton(
-                icon: Icon(Icons.settings),
-                onPressed: () {},
-              )
+
+              
+              /** @todo: settings button */
+              // IconButton(
+              //   icon: Icon(Icons.settings),
+              //   onPressed: () {},
+              // )
+
+
             ]),
         body: SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
